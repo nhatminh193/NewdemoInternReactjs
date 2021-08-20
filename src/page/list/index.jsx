@@ -2,6 +2,8 @@ import { useEffect } from "react";
 import {getListAction} from "../../redux/actions";
 import { connect } from "react-redux";
 import HeaderPage from '../../page/header';
+import history from "../../utils/history";
+
 
 function ListPage({getList, list,userInfo}){
   
@@ -28,21 +30,30 @@ function ListPage({getList, list,userInfo}){
   
    return (
      <>
-     {/* { userInfo.data.id ?( */}
+     { userInfo.data.id ?(
        <div> 
             <HeaderPage/> 
            {renderList()}
        </div>
-     {/* ):(
-       <div>Please Login</div>
+      ):(
+        <>
+        {/* <div style = {{display:"flex", justifyContent: "center", alignItems: "center",height: 50}}> */}
+        <div style = {{display:"flex", justifyContent: "space-between", alignItems: "center",height: 50}}>
+         <h1 style = {{color: "red", marginLeft: 780}}>Bạn cần phải đăng nhập</h1>
+        <button style = {{marginRight: 170, height: 40}} onClick={() => history.push('/')}>Đăng Nhập</button>
+        </div>
+        {/* </div> */}
+        </>
+      
      ) 
-    } */}
+    } 
     </>
    )
 
 }
 const mapStateToProps = (state) => {
-    const { list,userInfo } = state.listReducer;
+    const { list } = state.listReducer;
+    const { userInfo } = state.userReducer
     return {
       list,
       userInfo
